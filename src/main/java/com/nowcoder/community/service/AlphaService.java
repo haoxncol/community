@@ -16,20 +16,20 @@ public class AlphaService {
     @Autowired
     private AlphaDao alphaDao;
 
-    public AlphaService(){
-        System.out.println("实例化AlphaService");
-    }
-
-    @PostConstruct
-    public void init(){
-        System.out.println("初始化AlphaService");
-    }
-    @PreDestroy
-    public void destory(){
-        System.out.println("销毁AlphaService");
-    }
-     public String find(){
-        return alphaDao.select();
-    }
+//    public AlphaService(){
+//        System.out.println("实例化AlphaService");
+//    }
+//
+//    @PostConstruct
+//    public void init(){
+//        System.out.println("初始化AlphaService");
+//    }
+//    @PreDestroy
+//    public void destory(){
+//        System.out.println("销毁AlphaService");
+//    }
+//     public String find(){
+//        return alphaDao.select();
+//    }
 
 }
