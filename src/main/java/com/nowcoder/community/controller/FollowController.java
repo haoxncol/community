@@ -26,7 +26,7 @@ public class FollowController {
         return CommunityUtil.getJSONString(0 , "已关注");
     }
 
-    @RequestMapping(path = "/follow" , method = RequestMethod.POST)
+    @RequestMapping(path = "/unfollow" , method = RequestMethod.POST)
     @ResponseBody
     public String unfollow(int entityId , int entityType){
         User user = hostHolder.getUser();
