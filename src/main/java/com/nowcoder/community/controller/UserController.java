@@ -1,6 +1,7 @@
 package com.nowcoder.community.controller;
 
 import com.nowcoder.community.entity.User;
+import com.nowcoder.community.service.LikeService;
 import com.nowcoder.community.service.UserService;
 import com.nowcoder.community.util.CommunityUtil;
 import com.nowcoder.community.util.HostHolder;
@@ -40,6 +41,9 @@ public class UserController {
 
     @Autowired
     private HostHolder hostHolder;
+
+    @Autowired
+    private LikeService likeService;
 
     @RequestMapping(path = "/setting", method = RequestMethod.GET)
     public String getSettingPage(){
@@ -111,6 +115,21 @@ public class UserController {
             model.addAttribute("newPasswordMsg", map.get(" newPasswordMsg"));
             return "/site/setting";
         }
+    }
+
+    @RequestMapping(path = "/profile/{userId}" , method = RequestMethod.GET)
+    public String getProfilePage(@PathVariable int userId , Model model){
+        User user = userService.findUserById(userId);
+        if(user == null){
+            throw new RuntimeException("该用户不存在");
+        }
+        //用户信息传达给页面
+        model.addAttribute("user" , user);
+        //用户获赞的数量
+       int likeCount =  likeService.findUserLikeCount(user.getId());
+       model.addAttribute("likeCount" , likeCount);
+
+       return "/site/profile";
     }
 
 
