@@ -34,4 +34,6 @@ public class FollowController {
         followService.unfollow(user.getId(), entityType ,entityId);
         return CommunityUtil.getJSONString(0 , "已取消关注");
     }
+
+
 }

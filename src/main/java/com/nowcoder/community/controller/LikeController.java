@@ -25,8 +25,6 @@ public class LikeController {
     @ResponseBody
     public String like(int entityType , int entityId , int entityUserId){
         User user = hostHolder.getUser();
-
-
         //点赞
         likeService.like(user.getId(), entityType, entityId , entityUserId );
         //查询某实体的点赞数量
