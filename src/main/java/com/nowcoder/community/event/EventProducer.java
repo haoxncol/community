@@ -18,4 +18,7 @@ public class EventProducer {
         kafkaTemplate.send(event.getTopic(), JSONObject.toJSONString(event));
     }
 
+
+
+
 }
