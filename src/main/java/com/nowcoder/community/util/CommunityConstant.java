@@ -53,4 +53,8 @@ public interface CommunityConstant {
      * 系统用户Id
      */
     int SYSTEN_USERID = 1;
+    /**
+     * 主题：发帖
+     */
+    String TOPIC_PUBLISH = "publish";
 }
