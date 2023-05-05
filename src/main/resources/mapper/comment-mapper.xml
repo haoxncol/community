@@ -23,10 +23,11 @@
 
 
     <select id="selectCountByEntity" resultType="int">
-        select <include refid="selectFields"></include> from comment
+        select count(id)
+        from comment
         where status = 0
-        and entity_type = #{entityType}
-        and entity_id = #{entityId}
+          and entity_type = #{entityType}
+          and entity_id = #{entityId}
     </select>
 
     <insert id="insertComment" parameterType="Comment">
