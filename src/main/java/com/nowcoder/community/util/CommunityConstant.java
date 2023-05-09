@@ -60,6 +60,10 @@ public interface CommunityConstant {
     /**
      * 权限：普通用户
      */
+    /**
+     * 主题：删帖
+     */
+    String TOPIC_DELETE = "delete";
     String AUTHORITY_USER = "user";
     /**
      * 权限：管理员

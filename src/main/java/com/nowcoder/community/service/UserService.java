@@ -151,23 +151,22 @@ public class UserService implements CommunityConstant {
 		//redis会自动吧loginTicket对象转化为JSON字符串保存
 		redisTemplate.opsForValue().set(redisKey , loginTicket);
 		map.put("ticket" , loginTicket.getTicket());
-
 		return map;
 	}
 
 	public LoginTicket findLoginTicket(String ticket){
 //		return loginTicketMapper.selectByTicket(ticket);
 		String redisKey = RedisKeyUtil.getTicketKey(ticket);
-		return (LoginTicket) redisTemplate.opsForValue().get(ticket);
+		return (LoginTicket) redisTemplate.opsForValue().get(redisKey);
 
 	}
 
-	public void logout(String ticket){
-//		loginTicketMapper.updateStatus(ticket, 1);
+	public void logout(String ticket) {
+//        loginTicketMapper.updateStatus(ticket, 1);
 		String redisKey = RedisKeyUtil.getTicketKey(ticket);
-		LoginTicket loginTicket = (LoginTicket) redisTemplate.opsForValue().get(ticket);
+		LoginTicket loginTicket = (LoginTicket) redisTemplate.opsForValue().get(redisKey);
 		loginTicket.setStatus(1);
-		redisTemplate.opsForValue().set(redisKey , loginTicket);
+		redisTemplate.opsForValue().set(redisKey, loginTicket);
 	}
 
 	public User findUserById(int id){
@@ -212,32 +211,34 @@ public class UserService implements CommunityConstant {
 		return userMapper.selectByName(name);
 	}
 
-	//优先从缓存中取值
-	private User getCache(int userId){
+	// 1.优先从缓存中取值
+	private User getCache(int userId) {
 		String redisKey = RedisKeyUtil.getUserKey(userId);
 		return (User) redisTemplate.opsForValue().get(redisKey);
 	}
 
-	//取不到时 初始化缓存
-	private User initCache(int userId){
+	// 2.取不到时初始化缓存数据
+	private User initCache(int userId) {
 		User user = userMapper.selectById(userId);
 		String redisKey = RedisKeyUtil.getUserKey(userId);
-		redisTemplate.opsForValue().set(redisKey, user, 3600 , TimeUnit.SECONDS);
+		redisTemplate.opsForValue().set(redisKey, user, 3600, TimeUnit.SECONDS);
 		return user;
 	}
-	//当数据变更时，清除缓存数据
-	private void clearCache(int userId){
+
+	// 3.数据变更时清除缓存数据
+	private void clearCache(int userId) {
 		String redisKey = RedisKeyUtil.getUserKey(userId);
 		redisTemplate.delete(redisKey);
 	}
 
-	public Collection<? extends GrantedAuthority> getAuthorities(int userId){
+	public Collection<? extends GrantedAuthority> getAuthorities(int userId) {
 		User user = this.findUserById(userId);
 		List<GrantedAuthority> list = new ArrayList<>();
 		list.add(new GrantedAuthority() {
+
 			@Override
 			public String getAuthority() {
-				switch (user.getType()){
+				switch (user.getType()) {
 					case 1:
 						return AUTHORITY_ADMIN;
 					case 2:
