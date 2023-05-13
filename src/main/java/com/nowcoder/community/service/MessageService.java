@@ -36,7 +36,7 @@ public class MessageService {
         return messageMapper.selectLetterCount(conversationId);
     }
 
-    public int findLettterUnredCount(int userId , String conversationId){
+    public int findLetterUnreadCount(int userId , String conversationId){
         return messageMapper.selectLetterUnreadCount(userId, conversationId);
     }
 
@@ -57,7 +57,7 @@ public class MessageService {
         return messageMapper.selectNoticeCount(userId , topic);
     }
 
-    public int findNoticeUnreadcount(int userId , String topic){
+    public int findNoticeUnreadCount(int userId , String topic){
         return messageMapper.selectNoticeUnreadCount(userId , topic);
     }
 

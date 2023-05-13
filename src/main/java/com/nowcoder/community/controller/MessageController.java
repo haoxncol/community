@@ -51,7 +51,7 @@ public class MessageController implements CommunityConstant {
                 Map<String , Object> map = new HashMap<>();
                 map.put("conversation" , message);
                 //未读的消息数
-                map.put("unreadCount" , messageService.findLettterUnredCount(user.getId(), message.getConversationId()));
+                map.put("unreadCount" , messageService.findLetterUnreadCount(user.getId(), message.getConversationId()));
                 //总共的消息数
                 map.put("letterCount", messageService.findLetterCount(message.getConversationId()));
                 //传入与之对话的人的信息
@@ -63,9 +63,9 @@ public class MessageController implements CommunityConstant {
         model.addAttribute("conversations" , conversations);
 
         //查询未读消息数
-        int letterUnreadCount = messageService.findLettterUnredCount(user.getId(), null);
+        int letterUnreadCount = messageService.findLetterUnreadCount(user.getId(), null);
         model.addAttribute("letterUnreadCount" , letterUnreadCount);
-        int noticeUnreadCount = messageService.findNoticeUnreadcount(user.getId(), null);
+        int noticeUnreadCount = messageService.findNoticeUnreadCount(user.getId(), null);
         model.addAttribute("noticeUnreadCount" , noticeUnreadCount);
 
         return "/site/letter";
@@ -168,7 +168,7 @@ public class MessageController implements CommunityConstant {
             int count = messageService.findNoticeCount(user.getId(), TOPIC_COMMENT);
             messageVO.put("count" , count);
 
-            int unread = messageService.findNoticeUnreadcount(user.getId(), TOPIC_COMMENT);
+            int unread = messageService.findNoticeUnreadCount(user.getId(), TOPIC_COMMENT);
             messageVO.put("unread" , unread);
             model.addAttribute("commentNotice" , messageVO);
         }
@@ -188,7 +188,7 @@ public class MessageController implements CommunityConstant {
             int count = messageService.findNoticeCount(user.getId(), TOPIC_LIKE);
             messageVO.put("count" , count);
 
-            int unread = messageService.findNoticeUnreadcount(user.getId(), TOPIC_LIKE);
+            int unread = messageService.findNoticeUnreadCount(user.getId(), TOPIC_LIKE);
             messageVO.put("unread" , unread);
             model.addAttribute("likeNotice" , messageVO);
         }
@@ -208,16 +208,16 @@ public class MessageController implements CommunityConstant {
             int count = messageService.findNoticeCount(user.getId(), TOPIC_FOLLOW);
             messageVO.put("count" , count);
 
-            int unread = messageService.findNoticeUnreadcount(user.getId(), TOPIC_FOLLOW);
+            int unread = messageService.findNoticeUnreadCount(user.getId(), TOPIC_FOLLOW);
             messageVO.put("unread" , unread);
             model.addAttribute("followNotice" , messageVO);
         }
 
 
         //查询未读消息数量
-        int letterUnreadCount = messageService.findLettterUnredCount(user.getId(),null);
+        int letterUnreadCount = messageService.findLetterUnreadCount(user.getId(),null);
         model.addAttribute("letterUnreadCount" , letterUnreadCount);
-        int noticeUnreadCount = messageService.findNoticeUnreadcount(user.getId(), null);
+        int noticeUnreadCount = messageService.findNoticeUnreadCount(user.getId(), null);
         model.addAttribute("noticeUnreadCount" , noticeUnreadCount);
 
         return "/site/notice";
